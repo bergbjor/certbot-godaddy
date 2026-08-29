@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "certbot-dns-godaddy-pat"
+version = "1.0.0"
+description = "Certbot DNS plugin for GoDaddy using Personal Access Token (PAT) authentication"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.8"
+dependencies = [
+    "certbot>=1.18.0",
+    "requests>=2.20.0",
+]
+keywords = ["certbot", "letsencrypt", "godaddy", "dns", "acme"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Security",
+    "Topic :: System :: Installation/Setup",
+    "Topic :: System :: Networking",
+    "Topic :: Utilities",
+]
+
+[project.entry-points."certbot.plugins"]
+dns-godaddy-pat = "certbot_dns_godaddy_pat._internal.dns_godaddy_pat:Authenticator"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["certbot_dns_godaddy_pat*"]

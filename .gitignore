@@ -1,0 +1,10 @@
+.aider*
+__pycache__/
+*.egg-info/
+.venv/
+dist/
+build/
+*.ini
+!certbot-dns-godaddy-pat/godaddy-pat.ini.example
+.env
+!.env.example
