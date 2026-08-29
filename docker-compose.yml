@@ -1,0 +1,22 @@
+services:
+  npm:
+    image: ${NPM_IMAGE:?Set NPM_IMAGE in .env}
+    container_name: ${NPM_CONTAINER_NAME:-nginx-proxy-manager}
+    restart: ${NPM_RESTART_POLICY:-unless-stopped}
+    environment:
+      TZ: ${TZ:-UTC}
+    ports:
+      - "${NPM_HTTP_PORT:-80}:80"
+      - "${NPM_ADMIN_PORT:-81}:81"
+      - "${NPM_HTTPS_PORT:-443}:443"
+    volumes:
+      - ${NPM_DATA_DIR:?Set NPM_DATA_DIR in .env}:/data
+      - ${NPM_LETSENCRYPT_DIR:?Set NPM_LETSENCRYPT_DIR in .env}:/etc/letsencrypt
+    networks:
+      lan:
+        ipv4_address: ${NPM_IPV4_ADDRESS:?Set NPM_IPV4_ADDRESS in .env}
+
+networks:
+  lan:
+    external: true
+    name: ${NPM_NETWORK_NAME:?Set NPM_NETWORK_NAME in .env}
