@@ -1,6 +1,6 @@
 # GoDaddy Personal Access Token credentials for certbot-dns-godaddy-pat
 #
-# Generate a PAT at: https://developer.godaddy.com/keys
+# Generate a PAT at: https://developer.godaddy.com/en/personal-access-token
 # Make sure the token has "Domain" scope (read + write).
 #
 # IMPORTANT: Protect this file!

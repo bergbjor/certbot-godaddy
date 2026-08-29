@@ -1,4 +1,4 @@
-ARG NPM_IMAGE=jc21/nginx-proxy-manager:latest
+ARG NPM_IMAGE=jc21/nginx-proxy-manager:latest@sha256:52b2c59994f3d36acfcf70a1626f29734df0ed8c71bacc0269f78b6f939858bb
 FROM ${NPM_IMAGE}
 
 # NPM's GUI and backend read this provider registry. Installing only a Python

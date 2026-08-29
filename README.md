@@ -6,6 +6,27 @@ image with a Certbot DNS-01 plugin for GoDaddy Personal Access Tokens (PATs).
 It enables certificate requests and renewals from the NPM web interface,
 including wildcard certificates such as `*.example.com`.
 
+## Why this project exists
+
+If you arrived here after trying GoDaddy DNS in a standard NPM installation,
+you may have run into a confusing mismatch: NPM's built-in **GoDaddy** entry
+expects the older API key/secret credentials, while GoDaddy now provides
+Personal Access Tokens (PATs) through its developer portal.
+
+NPM's provider registry currently points that entry at the separate
+`certbot-dns-godaddy` package. The package is maintained independently of NPM,
+is published as an Alpha project, and its latest PyPI release is `2.8.0` from
+January 2024. It does not provide the PAT credentials format used by this
+project. See the [NPM provider definition](https://raw.githubusercontent.com/NginxProxyManager/nginx-proxy-manager/develop/backend/certbot/dns-plugins.json),
+the [package on PyPI](https://pypi.org/project/certbot-dns-godaddy/), and its
+[upstream source repository](https://github.com/miigotu/certbot-dns-godaddy).
+
+This repository is an independent community solution, not an official NPM or
+GoDaddy project. It supplies a separate PAT-enabled Certbot plugin and a
+custom NPM image that makes it selectable in the NPM UI. The plugin is
+maintained separately from NPM and should be treated as a community-supported
+integration.
+
 ## How it works
 
 NPM discovers DNS providers from its internal provider registry. The image in
@@ -26,7 +47,7 @@ or mounted on the Docker host.
 - a GoDaddy **Production** PAT with permission to read and write domain DNS;
 - ports 80, 81, and 443 available, unless you change the port mappings.
 
-Create a token at the [GoDaddy Developer Portal](https://developer.godaddy.com/keys).
+Create a Production token on GoDaddy's [Personal Access Token page](https://developer.godaddy.com/en/personal-access-token).
 Never commit a real token to this repository. If a token has been exposed,
 revoke it and create a new one.
 
@@ -142,7 +163,8 @@ Run the Python syntax check:
 python3 -m compileall certbot-dns-godaddy-pat/certbot_dns_godaddy_pat
 ```
 
-The base image can be selected explicitly:
+The Dockerfile pins the default NPM base image by digest for reproducible
+builds. A different tagged or pinned base image can be selected explicitly:
 
 ```bash
 docker build \
